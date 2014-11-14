@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ username }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+
+    <div class="col-md-14" style="margin-top:1.5cm;">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-flask fa-1g"></i> {{ username }}&rsquo;s Timeline
+                        </h3>
+                        <a href="{% url 'profile' %}{{username}}"><button class="btn btn-success pull-right"> {{ username }}&rsquo;s Profile</button>
+                    </div>
+
+
+    <ul id="timeline" class="grid_9 alpha">
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'userline' post.username %}" class="username">{{ post.username }}</a>
+                <span class="body">{{ post.body|urlize }}</span>
+            </li>
+        {% empty %}
+            <li>There are no posts yet.  </li>
+        {% endfor %}
+        {% if next %}
+            <li class="more"><a href="?start={{ next }}">More</a></li>
+        {% endif %}
+    </ul>
+
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-md-9">
+    {% if request.user.is_authenticated %}
+        {% ifnotequal request.user.id user.id %}
+            <form method="POST" action="{% url 'modify_friend' %}?next={{ request.path }}">
+                <input type="hidden" name="{% if is_friend %}remove{% else %}add{% endif %}-friend" value="{{ user.id }}" />
+                <input type="submit" value="{% if is_friend %}Remove{% else %}Add{% endif %} Friend" />
+            </form>
+        {% endifnotequal %}
+    {% else %}
+        <a href="{% url 'login' %}?next={{ request.path }}&q={{ q }}">
+            Login to add {{ username }} as a friend
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

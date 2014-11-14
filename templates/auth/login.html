@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Login - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+
+
+
+
+      <div class="col-md-8" style="margin-top:1.5cm;">
+
+        <div class="auth grid_4 omega" id="signup">
+            <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-flask fa-1g"></i> Sign Up</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                      <form method="POST">
+                         <ul>
+                            {{ register_form.as_ul }}
+                        </ul>
+                        <input type="hidden" name="kind" value="register" />
+                        {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        {% endif %}
+                        
+                        <button type="submit" class="btn btn-primary" name="signup">Sign Up
+                        </button>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+    </div> 
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+      <div class="col-md-4" style="margin-top:1.5cm;">
+   
+            <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-flask fa-1g"></i> Sign In</h3>
+                    </div>
+                    <div class="panel-body text-center">
+             <div class="wrapper hp-nus-wrapper" >
+                <div class="auth grid_4 prefix_1 alpha" id="signin">
+                    
+                    <form method="POST">
+                        <div class="form-group">
+                            {{ login_form.as_ul }}
+                        </div>
+                            
+                        <input type="hidden" name="kind" value="login" />
+                        {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary" name="signup">Sign In
+                        </button>
+                        </br></br>
+                        </form>
+                       </div>
+                 </div>
+               </div>
+         </div>
+
+  </div> 
+       
+
+
+{% endblock %}

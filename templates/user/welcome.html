@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Complete your profile - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+
+<div class="col-md-10">
+                <div class="panel panel-info">
+                <br>
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-plus fa-1g"></i> Few steps to go </h3>
+                    </div>
+                    <div class="panel-body">
+
+                      <form action="{% url "user.views.welcome" %}" method="POST" enctype="multipart/form-data">
+                        <ul>
+                             {{ form.as_ul }}
+                             {% csrf_token %}
+                              <p>{{ form.non_field_errors }}</p>
+                             <p>{{ form.photo.errors }} </p>
+                        </ul>
+                        <button type="submit" class="btn btn-primary" name="signup">Save</button>
+
+                      </form>       
+
+                     </div>
+                </div>
+</div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+    <div class="col-md-11" style="margin-top:1.5cm;">
+            <div class="col-md-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-flask fa-1g"></i> </h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        
+                                <h3>Welcome to Linkssandra </h3>
+                        
+                    </div>
+                </div>                                  
+            </div>
+    </div>
+
+
+    {% endblock %}

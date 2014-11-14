@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}My Timeline - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-14" style="margin-top:1.5cm;">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-flask fa-1g"></i> Timeline
+                        </h3>
+                    </div>
+
+    {% if request.user.is_authenticated %}
+        <form method="POST" id="poster">
+
+            <div class="col-md-10" >
+                <div clas="cols"> 
+                    <table width="100%"  border="0"><tr><td colspan="4">  <textarea placeholder ="share an update" rows="1" cols="20" maxlength="140"  name="body" type="text" id="id_body" class="form-control"></textarea></td><td>
+          <button type="submit" class="btn btn-primary" name="signup">
+            Share
+            </button></td></tr> </table>
+        
+      </div>
+            
+                
+         
+            </div>
+                           
+            <div class="clear"></div>
+        </form>
+    {% else %}
+    {% endif %}
+    <ul id="timeline" class="grid_9 alpha">
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'userline' post.username %}" class="username">{{ post.username }}</a>
+                <span class="body">{{ post.body|urlize }}</span>
+            </li>
+        {% empty %}
+            <li>There are no posts yet. </li>
+        {% endfor %}
+        {% if next %}
+            <li class="more"><a href="?start={{ next }}">More</a></li>
+        {% endif %}
+    </ul>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+    {% if not request.user.is_authenticated %}
+        <a href="{% url 'login' %}">Log in to post </a>
+    {% endif %}
+{% endblock %}

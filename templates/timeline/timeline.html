@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Timeline - {{ block.super }}{% endblock %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <form method="POST" id="poster">
+            <div class="section feed feed-nhome feed-redesign">
+                <textarea  class="post-message mentions-input" placeholder="Share an update..." maxlength="140" name="body" type="text" id="id_body"></textarea>
+            </div>
+            <input type="submit" value="Share" class="btn-primary">
+            <div class="clear"></div>
+        </form>
+    {% else %}
+        <h2 class="grid_4 suffix_5">Public Timeline</h2>
+    {% endif %}
+    <ul id="timeline" class="grid_9 alpha">
+        {% for post in posts %}
+            <li>
+<div class="content">
+<img src="{{post.username}}" class="feed-photo photo"  width="60" height="60">
+                <a href="" class="feed-item today-news-el tod-wrpr" id="responsive-nav-scrollable" style="position: static; z-index: 1; width: auto;" >{{ post.username }}</a>
+                <div class="feed-body">{{ post.body }}</div>
+</div>
+            </li>
+        {% empty %}
+            <li>There are no post yet.  Make sure to post one!</li>
+        {% endfor %}
+        {% if next %}
+            <li class="more"><a href="?start={{ next }}">More</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+    {% if not request.user.is_authenticated %}
+        <a href="{% url 'login' %}">Log in to post</a>
+    {% endif %}
+{% endblock %}

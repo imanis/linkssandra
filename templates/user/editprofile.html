@@ -1,0 +1,160 @@
+	{% extends "base.html" %}
+
+	{% block title %}{{ username }}&rsquo;s profile - {{ block.super }}{% endblock %}
+
+	{% block content %}
+
+	  <div class="col-md-9">
+	  <div class="row">
+	    <div class="col-md-12">
+	      <ol class="breadcrumb">
+	        <li><a href="#">Home</a></li>
+	        <li><a href="#">Profiles</a></li>
+	        <li class="active">Skip Redding</li>
+	      </ol>
+	    </div>
+	  </div>
+	  <!-- end bread crumb -->
+	  <div class="row">
+	    <div class="col-md-12">
+
+	                </div>
+	  </div>
+	<!--exper-->
+				<div class="col-md">
+						<ol class="breadcrumb">
+						  <li>Experiences</li><span class="label label-success pull-right">Add</span>
+						</ol>
+
+					</div>
+
+
+
+        			 {% for exp in userexper %}
+	       				<div class="row">
+							<div class="col-md-12">
+					        		<div class="panel panel-info">
+										<div class="panel-heading">
+									    	<h3 class="panel-title"><i class="fa fa-info-circle fa-1g"></i> {{ exp.exper_titel}}</h3>
+									    </div>
+										<div class="panel-body">
+										    <span class="body">{{ exp.company_name }}</span> from 
+										    <span class="body">{{ exp.start_time }}</span> to 
+										    <span class="body">{{ exp.end_time }}</span>
+										    <span class="body">{{ exp.description  }}</span>
+										</div>
+									</div>
+							</div>
+						</div>
+			        {% empty %}
+			        <div class="panel-body">
+					   <li>{{ userdata.firstname }} has  no exper yet. hire him for a first job ;) </li>
+						</div>	      
+			        {% endfor %}
+
+	<!--educ-->
+				<div class="col-md">
+						<ol class="breadcrumb">
+						  <li>Training & Education</li><span class="label label-success pull-right">Add</span>
+						</ol>
+					</div>
+
+
+
+        			 {% for edu in usereduc %}
+	       				<div class="row">
+							<div class="col-md-12">
+					        		<div class="panel panel-info">
+										<div class="panel-heading">
+									    	<h3 class="panel-title"><i class="fa fa-info-circle fa-1g"></i> {{ edu.exper_titel}}</h3>
+									    </div>
+										<div class="panel-body">
+										    <span class="body">{{ edu.company_name }}</span> from 
+										    <span class="body">{{ edu.start_time }}</span> to 
+										    <span class="body">{{ edu.end_time }}</span>
+										    <span class="body">{{ edu.description  }}</span>
+										</div>
+									</div>
+							</div>
+						</div>
+			        {% empty %}
+			        <div class="panel-body">
+					   <li>{{ userdata.firstname  }} has  no training or education </li>
+						</div>	      
+			        {% endfor %}			        
+
+
+	<!--tags-->
+				<div class="col-md">
+						<ol class="breadcrumb">
+						  <li>Skills & Endorsements</li><span class="label label-success pull-right">Add</span>
+						</ol>
+					</div>
+
+
+        			 {% for edu in usereduc %}
+	       				<div class="row">
+							<div class="col-md-12">
+					        		<div class="panel panel-info">
+										<div class="panel-heading">
+									    	<h3 class="panel-title"><i class="fa fa-info-circle fa-1g"></i> {{ edu.exper_titel}}</h3>
+									    </div>
+										<div class="panel-body">
+										    <span class="body">{{ edu.company_name }}</span> from 
+										    <span class="body">{{ edu.start_time }}</span> to 
+										    <span class="body">{{ edu.end_time }}</span>
+										    <span class="body">{{ edu.description  }}</span>
+										</div>
+									</div>
+							</div>
+						</div>
+			        {% empty %}
+			        <div class="panel-body">
+					   <li>{{ userdata.firstname  }} has no tags yet </li>
+						</div>	      
+			        {% endfor %}			        
+
+
+	  </div> 
+	   
+	{% endblock %}
+
+
+
+	{% block sidebar %}
+
+	<div class="col-md-3" style="margin-top:1.5cm;">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+		    			<h3 class="panel-title"><i class="fa fa-flask fa-1g"></i> Profile</h3>
+	   			 	</div>
+					<div class="panel-body text-center">
+						<a href="">
+						  {% if userdata.photo %}
+					      <img src= "../{{ userdata.photo }}" width="200" height="200" />
+					      {% else %}
+					      <img src= "{{ MEDIA_URL }}DATA/nopic/nopic.png" width="200" height="200" />
+					      {% endif %}
+						</a>
+								<h3><a href="{% url 'userline' userdata.username %}">{{ userdata.firstname }} {{ userdata.lastname }}</a></h3>
+								<span class="label label-success"> Profil Views : {{ userdata.total_profil_view }} </span>
+						<hr>
+						<p>Created: {{ userdata.created_date }}</p>
+						<hr>
+						<p><i class="fa fa-group fa-1g"></i> Email : {{ userdata.email }} </p>
+						<p><i class="fa fa-clipboard fa-1g"></i><b> @{{ userdata.username }} </b></p>
+						<hr>
+						<p>
+						<a href="{% url 'profile'%}addfriend/{{username}}/" ><button class="btn btn-success pull-right"> Connect</button>
+						</a>
+						<a href="{% url 'timeline' %}{{username}}"><button class="btn btn-success pull-right"> {{ username }}&rsquo;s posts</button>
+							</a>
+						</p>
+					</div>
+				</div>									
+			</div>
+	</div>
+
+
+	{% endblock %}
